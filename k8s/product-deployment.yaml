@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service
+  namespace: default
+spec:
+  replicas: 1  # ✅ Cost-optimized: only one pod running
+  selector:
+    matchLabels:
+      app: product-service
+  template:
+    metadata:
+      labels:
+        app: product-service
+    spec:
+      containers:
+      - name: product-service
+        image: adedoyine/product-service:latest
+        ports:
+        - containerPort: 5000
