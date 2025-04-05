@@ -1,0 +1,13 @@
+service:
+  type: ClusterIP
+
+elasticsearchHosts:
+  - https://elasticsearch-master.logging.svc.cluster.local:9200
+
+env:
+  ELASTICSEARCH_USERNAME: elastic
+  ELASTICSEARCH_PASSWORD: sNHbnAHXZmYUuoOC
+
+resources:
+  requests:
+    memory: "512Mi"

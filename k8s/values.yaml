@@ -1,0 +1,17 @@
+config:
+  outputs: |
+    [OUTPUT]
+        name            es
+        match           *
+        host            elasticsearch-master
+        port            9200
+        tls             On
+        tls.verify      Off
+        http_user       elastic
+        http_passwd     sNHbnAHXZmYUuoOC
+        index           fluentbit-index
+        logstash_format On
+        replace_dots    On
+        generate_id     On
+        suppress_type_name On
+

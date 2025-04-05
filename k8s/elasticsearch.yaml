@@ -4,7 +4,7 @@ metadata:
   name: elastic
   namespace: logging
 spec:
-  version: 8.9.0
+  version: 8.17.4
   nodeSets:
     - name: default
       count: 1
