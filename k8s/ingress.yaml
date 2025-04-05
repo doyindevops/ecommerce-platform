@@ -4,7 +4,7 @@ metadata:
   name: ecommerce-ingress
   namespace: default
   annotations:
-    konghq.com/strip-path: "true"
+    konghq.com/strip-path: "false"
 spec:
   ingressClassName: kong
   rules:

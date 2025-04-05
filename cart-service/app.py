@@ -5,6 +5,10 @@ app = Flask(__name__)
 # Sample cart data
 cart = []
 
+@app.route('/cart', methods=['GET'])
+def get_cart():
+    return jsonify(cart)
+
 @app.route('/cart', methods=['POST'])
 def add_to_cart():
     item = request.get_json()
