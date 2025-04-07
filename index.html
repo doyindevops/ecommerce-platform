@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ecommerce Platform - Cloud DevOps Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f9f9f9;
+            color: #333;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<pre>
+
+# 🚀 E-Commerce Platform on AWS EKS with ArgoCD, Docker & Monitoring
+
+Welcome to a **fully containerized microservices-based e-commerce platform**, built using **Flask**, deployed on **Amazon EKS**, managed via **ArgoCD**, and monitored using the **ELK stack and Grafana**.
+
+---
+
+## 🧱 Project Structure
+
+```bash
+ecommerce-platform/
+│
+├── cart-service/                  # Microservice: Cart
+├── order-service/                 # Microservice: Orders
+├── product-service/               # Microservice: Products
+├── k8s/                           # All Kubernetes manifests
+│   ├── argo-app.yaml              # ArgoCD App config
+│   ├── ingress.yaml               # Kong Ingress configuration
+│   ├── elasticsearch.yaml         # Elasticsearch setup
+│   ├── kibana.yaml                # Kibana Dashboard
+│   ├── fluentd-daemonset.yaml     # Fluentd for logging
+│   ├── values.yaml                # Helm values
+│   └── add-t3-large-nodegroup.yaml # Cluster upgrade YAML
+└── .gitignore
+```
+
+---
+
+## 🧠 Architecture Overview
+
+![Architecture](architecture.png)
+
+---
+
+## 🎥 Full Walkthrough Videos
+
+> ✅ All videos demonstrate real-time configuration, deployment, debugging, and resolution.
+
+- 🔹 **Cluster Scaling & Nodegroup Fix**: [`add-t3-large-nodegroup.yaml`](add-t3-large-nodegroup.yaml)
+- 🔹 **Microservice Build & Push to DockerHub**
+- 🔹 **ArgoCD Setup, GitHub Integration, and Sync**
+- 🔹 **Pod Scheduling Issue Troubleshooting**
+- 🔹 **ELK Stack & Fluentd Logging**
+- 🔹 **Grafana Dashboard Configuration**
+
+---
+
+## 🐛 Error Fix: ArgoCD Pending Pods
+
+### ❌ Problem
+
+```bash
+0/2 nodes are available: 2 Too many pods.
+```
+
+### 📌 Root Cause
+
+- `t3.micro` EC2 instances have low ENI capacity → max 4-5 pods
+- EKS + CoreDNS + aws-node pods already consume most capacity
+
+### ✅ Fix
+
+- Created a `t3.large` node group using the file:
+
+```yaml
+# k8s/add-t3-large-nodegroup.yaml
+eksctl create nodegroup -f add-t3-large-nodegroup.yaml
+```
+
+- Drained & deleted `t3.micro` nodes to migrate workloads:
+
+```bash
+kubectl drain <node> --ignore-daemonsets --delete-emptydir-data
+eksctl delete nodegroup --name standard-workers --cluster ecommerce-cluster --region us-east-1
+```
+
+---
+
+## ⚙️ GitOps Flow with ArgoCD
+
+- Configured ArgoCD to sync with GitHub repo
+- Application YAML managed under `k8s/` folder
+- On every push, ArgoCD auto-syncs the cluster state
+
+![ArgoCD GitHub Synced](GITHUB%20CONNECTED%20TO%20ARGOCD.png)
+
+---
+
+## 🌐 Exposing Services via Kong Ingress
+
+- Kong ingress exposes the services via AWS ELB:
+
+```
+http://<elb-dns>/products
+http://<elb-dns>/orders
+http://<elb-dns>/cart
+```
+
+- Example Ingress Spec:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ecommerce-ingress
+  annotations:
+    konghq.com/strip-path: "false"
+spec:
+  ingressClassName: kong
+  rules:
+    - http:
+        paths:
+        - path: /products
+          backend:
+            service:
+              name: product-service
+              port:
+                number: 80
+```
+
+---
+
+## 📦 Microservices
+
+Each service follows the same structure:
+- `app.py`: Flask routes
+- `Dockerfile`: For containerization
+- `requirements.txt`: Python dependencies
+
+---
+
+## 📊 Observability
+
+- **Elasticsearch + Fluentd + Kibana (EFK)** stack for logging
+- **Grafana** for metrics and visualization
+
+---
+
+## 🧠 Lessons & Takeaways
+
+- EKS node type selection is critical
+- GitOps workflows improve consistency
+- Logging and Monitoring are crucial from Day 1
+- Use `kubectl get events` and `kubectl describe pod` for deep troubleshooting
+
+---
+
+## 🔗 DockerHub Repos
+
+- [`adedoyine/cart-service`](https://hub.docker.com/repository/docker/adedoyine/cart-service)
+- [`adedoyine/order-service`](https://hub.docker.com/repository/docker/adedoyine/order-service)
+- [`adedoyine/product-service`](https://hub.docker.com/repository/docker/adedoyine/product-service)
+
+---
+
+## 💼 Built With
+
+- 🐳 Docker + DockerHub
+- ☸️ Kubernetes + Amazon EKS
+- ⚙️ ArgoCD for GitOps
+- 📈 Grafana, Fluentd, Kibana for observability
+
+---
+
+## 👋 Let's Connect!
+
+If you're a recruiter or engineer, feel free to check the videos, repo, or reach out!
+
+</pre>
+</body>
+</html>
