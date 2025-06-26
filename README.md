@@ -1,6 +1,16 @@
 
 # 🛒 Ecommerce Microservices Platform on AWS EKS (GitOps with ArgoCD)
 
+[![Maintainer](https://img.shields.io/badge/maintainer-doyindevops-blue)](https://github.com/doyindevops)
+[![YouTube](https://img.shields.io/badge/YouTube-Project_Demo-red?logo=youtube)](https://www.youtube.com/@doyinekong/playlists)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+> **Created and maintained by [Adedoyin Ekong](https://github.com/doyindevops) – Cloud & DevOps Engineer**
+
+---
+
+**🚩 If you fork, please retain this attribution section to credit the original author.**
+
 Welcome to a **production-grade microservices deployment** powered by Kubernetes on **AWS EKS**, GitOps with **ArgoCD**, CI/CD automation, and EFK logging/monitoring.
 
 > 📺 **Walkthrough Video**  
