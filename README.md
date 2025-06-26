@@ -13,38 +13,38 @@
 
 Welcome to a **production-grade microservices deployment** powered by Kubernetes on **AWS EKS**, GitOps with **ArgoCD**, CI/CD automation, and EFK logging/monitoring.
 
-> 📺 **Walkthrough Video**  
-> ▶️ [Watch on YouTube](https://www.youtube.com/playlist?list=PL7KUROV69G9EhPTckM5g45ScJPhZioG4d) 
+>  **Walkthrough Video**  
+>  [Watch on YouTube](https://www.youtube.com/playlist?list=PL7KUROV69G9EhPTckM5g45ScJPhZioG4d) 
 
 ---
 
-## 📌 Project Highlights
+##  Project Highlights
 
-- 🚀 Built with Flask-based microservices (`Product`, `Cart`, `Order`)
-- ☸️ Deployed to **EKS Cluster** via ArgoCD and GitOps
-- 🔀 Routed externally using **Kong Ingress**
-- 📦 Dockerized and pushed to **Docker Hub**
-- 📈 Logging and Monitoring via **Elasticsearch + Fluentd + Kibana (EFK)**
-- 💡 Autoscaling, custom Helm values, environment variables
-- 📋 Real-world troubleshooting & node upgrade case study
+-  Built with Flask-based microservices (`Product`, `Cart`, `Order`)
+-  Deployed to **EKS Cluster** via ArgoCD and GitOps
+-  Routed externally using **Kong Ingress**
+-  Dockerized and pushed to **Docker Hub**
+-  Logging and Monitoring via **Elasticsearch + Fluentd + Kibana (EFK)**
+-  Autoscaling, custom Helm values, environment variables
+-  Real-world troubleshooting & node upgrade case study
 
 ---
 
-## 🧰 Tech Stack Overview
+##  Tech Stack Overview
 
 | Feature                 | Status        |
 |-------------------------|---------------|
-| 🚀 EKS Cluster           | ✅ Deployed    |
-| 🔁 ArgoCD GitOps         | ✅ Synced      |
-| 🌐 Ingress Routing       | ✅ Working     |
-| 🐳 DockerHub Push        | ✅ Done        |
-| 📊 Elasticsearch + Kibana| ✅ Configured  |
-| 📈 Node Scaling          | ✅ Resolved    |
-| 🔍 Monitoring & Logs     | ✅ Visualized  |
+|  EKS Cluster           | ✅ Deployed    |
+|  ArgoCD GitOps         | ✅ Synced      |
+|  Ingress Routing       | ✅ Working     |
+|  DockerHub Push        | ✅ Done        |
+|  Elasticsearch + Kibana| ✅ Configured  |
+|  Node Scaling          | ✅ Resolved    |
+|  Monitoring & Logs     | ✅ Visualized  |
 
 ---
 
-## 🧠 Architecture
+##  Architecture
 
 > High-Level Overview
 
@@ -52,7 +52,7 @@ Welcome to a **production-grade microservices deployment** powered by Kubernetes
 
 ---
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```bash
 ecommerce-platform/
@@ -79,7 +79,7 @@ ecommerce-platform/
 
 ---
 
-## 🐳 DockerHub Repositories
+##  DockerHub Repositories
 
 Each service is containerized using **Docker**, and images are hosted publicly at:
 
@@ -99,7 +99,7 @@ These are then pulled automatically in Kubernetes using ArgoCD & GitOps workflow
 
 ---
 
-## 🔄 GitOps with ArgoCD
+##  GitOps with ArgoCD
 
 ArgoCD automatically syncs from this GitHub repo to keep Kubernetes state declarative and up to date.
 
@@ -113,7 +113,7 @@ ArgoCD automatically syncs from this GitHub repo to keep Kubernetes state declar
 
 ---
 
-## 🧩 Microservices
+##  Microservices
 
 Each service is:
 - Dockerized (`Dockerfile`)
@@ -123,7 +123,7 @@ Each service is:
 
 ---
 
-## 🌐 Ingress Routing (Kong Gateway)
+##  Ingress Routing (Kong Gateway)
 
 ```yaml
 # k8s/ingress.yaml
@@ -134,7 +134,7 @@ Each service is:
 
 ---
 
-## ❗️ Error Case Study: Pod Scheduling Issue & Resolution
+## ❗ Error Case Study: Pod Scheduling Issue & Resolution
 
 ### 🔍 Problem
 
@@ -144,12 +144,12 @@ ArgoCD pods stuck in `Pending` state:
 0/2 nodes are available: 2 Too many pods.
 ```
 
-### 💡 Reason
+###  Reason
 
 - Using `t3.micro` EC2 instances
 - Each node limited to ~4 pods due to ENI/IP limits
 
-### ✅ Fix: Upgrade to `t3.large` Nodes
+###  Fix: Upgrade to `t3.large` Nodes
 
 ```yaml
 # add-t3-large-nodegroup.yaml
@@ -157,13 +157,13 @@ instanceType: t3.large
 desiredCapacity: 2
 ```
 
-📦 Created via:
+ Created via:
 
 ```bash
 eksctl create nodegroup -f add-t3-large-nodegroup.yaml
 ```
 
-📸 CLI output:
+ CLI output:
 
 ![Node upgrade CLI](Images/CLI-Nodes.png)
 
@@ -175,23 +175,23 @@ eksctl create nodegroup -f add-t3-large-nodegroup.yaml
 - Fluentd collects logs from all namespaces
 - Elasticsearch stores and indexes logs
 
-✅ Setup Visual:
+ Setup Visual:
 
 ![CloudFormation EKS](Images/cloudformation.png)
 
 ---
 
-## 📚 Future Enhancements
+##  Future Enhancements
 
-- 🔐 HTTPS with Cert-Manager + Route53
-- 🐳 Add Redis/MongoDB for persistence
-- ⚙️ Helm templating + secrets
-- 📈 Add Prometheus + Grafana stack
-- 🧪 Full CI pipeline with GitHub Actions
+-  HTTPS with Cert-Manager + Route53
+-  Add Redis/MongoDB for persistence
+- ⚙ Helm templating + secrets
+-  Add Prometheus + Grafana stack
+-  Full CI pipeline with GitHub Actions
 
 ---
 
-## 💼 About Me
+##  About Me
 
 👋 Hi! I’m a DevOps enthusiast passionate about building scalable cloud-native platforms. This project reflects real-world scenarios such as GitOps, EKS scaling, microservice isolation, monitoring, and fault-tolerance.
 
