@@ -44,14 +44,6 @@ Welcome to a **production-grade microservices deployment** powered by Kubernetes
 
 ---
 
-##  Architecture
-
-> High-Level Overview
-
-![architecture](Images/architecture.png)
-
----
-
 ##  Repository Structure
 
 ```bash
